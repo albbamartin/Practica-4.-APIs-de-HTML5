@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .thumb {
+            height: 400px;
+            border: 1px solid #000;
+            margin: 10px 5px 0 0;
+}
+    </style>
+<head>
+    <meta charset="utf-8">
+
+    <script>
+        if (window.File && window.FileReader && window.FileList) { console.log('Todas las APIs soportadas');
+        } else {
+        alert('La API de FILE no es soportada en este navegador.');
+        }
+    </script>
+
+    <script>
+        function previewFile() {
+            var preview = document.querySelector('video'); 
+
+            var file = document.querySelector('input[type=file]').files[0];
+
+            if(file.type == "video/mp4" || file.type == "video/webm" ){
+
+                alert("Se está cargando el archivo, esto puede demorarse unos minutos.")
+
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    preview.src = reader.result;
+                }, false);
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }else{
+                alert("Formato incorrecto, solo se admite video tipo mp4 o WebM.")
+            }
+
+            
+        }
+    </script>
+</head>
+
+<body>
+    <h3>Carga de ficheros</h3>
+    <input type="file" onchange="previewFile()">
+    <video id="video">src=""</video>
+
+    <div>
+        <button onclick="document.getElementById('video').play();">Reproducir</button>
+        <button onclick="document.getElementById('video').pause();">Pausa</button>
+        <button onclick="document.getElementById('video').volume += 0.25;">Subir Volumen</button>
+        <button onclick="document.getElementById('video').volume -= 0.25;">Bajar Volumen</button>
+    </div>
+
+</body>
+</html>
